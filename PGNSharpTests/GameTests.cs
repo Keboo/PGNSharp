@@ -8,11 +8,16 @@ namespace PGNSharpTests
     public class GameTests
     {
         private static readonly string PGN = string.Format(@"
-[Event {0}F/S Return Match{0}][Site {0}Belgrade, Serbia JUG{0}]
-[    \tDate \t{0}1992.11.04{0}   \t]
-[Round {0}29{0}]
-[White {0}Fischer, Robert J.{0}]
-[Black {0}Spassky, Boris V.{0}]
+[Event {0}F/S Return Match{0}][Site {0}Belgrade, Serbia JUG{0}]     [    Date {0}1992.11.04{0}   ]   
+  [ Round {0}29{0} ] 
+
+
+[  White          {0}Fischer, Robert J.{0}  ]
+
+[
+    Black   
+{0}Spassky, Boris V.{0}
+]
 [Result {0}1/2-1/2{0}]
 
 1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 d6 8. c3
