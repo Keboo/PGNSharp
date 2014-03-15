@@ -8,7 +8,7 @@ namespace PGNSharpTests
     [TestClass]
     public class GameTests
     {
-        private static readonly string PGN = string.Format(@"
+        private static readonly string PGN = string.Format( @"
 [Event {0}F/S Return Match{0}][Site {0}Belgrade, Serbia JUG{0}]     [    Date {0}1992.11.04{0}   ]   
   [ Round {0}29{0} ] 
 
@@ -29,47 +29,86 @@ Nc4 Nxc4 22. Bxc4 Nb6 23. Ne5 Rae8 24. Bxf7+ Rxf7 25. Nxf7 Rxe1+ 26. Qxe1 Kxf7
 27. Qe3 Qg5 28. Qxg5 hxg5 29. b3 Ke6 30. a3 Kd6 31. axb4 cxb4 32. Ra5 Nd5 33.
 f3 Bc8 34. Kf2 Bf5 35. Ra7 g6 36. Ra6+ Kc5 37. Ke1 Nf4 38. g3 Nxh3 39. Kd2 Kb5
 40. Rd6 Kc5 41. Ra6 Nf2 42. g4 Bd3 43. Re6 1/2-1/2
-", "\"");
+", "\"" );
 
         [TestMethod]
         public void TestLoadingGame()
         {
+            Game game = LoadGame();
+
+            Assert.IsNotNull( game );
+
+            Assert.AreEqual( @"F/S Return Match", game.TagPairs["Event"] );
+            Assert.AreEqual( @"F/S Return Match", game.Event );
+            Assert.AreEqual( @"Belgrade, Serbia JUG", game.TagPairs["Site"] );
+            Assert.AreEqual( @"Belgrade, Serbia JUG", game.Site );
+            Assert.AreEqual( @"1992.11.04", game.TagPairs["Date"] );
+            Assert.AreEqual( new DateTime( 1992, 11, 4 ), game.Date );
+            Assert.AreEqual( @"29", game.TagPairs["Round"] );
+            Assert.AreEqual( 29, game.Round );
+            Assert.AreEqual( @"Fischer, Robert J.", game.TagPairs["White"] );
+            Assert.AreEqual( @"Fischer, Robert J.", game.WhitePlayer );
+            Assert.AreEqual( @"Spassky, Boris V.", game.TagPairs["Black"] );
+            Assert.AreEqual( @"Spassky, Boris V.", game.BlackPlayer );
+            Assert.AreEqual( @"1/2-1/2", game.TagPairs["Result"] );
+            Assert.AreEqual( GameResult.Draw, game.Result );
+            Assert.AreEqual( @"Thing 1:Thing 2", game.TagPairs["Things"] );
+        }
+
+        [TestMethod]
+        public void PiecesStartInTheCorrectLocations()
+        {
+            Game game = LoadGame();
+
+            Assert.AreEqual( Piece.WhitePawn, game.GetPiece( Location.A2 ) );
+            Assert.AreEqual( Piece.WhitePawn, game.GetPiece( Location.B2 ) );
+            Assert.AreEqual( Piece.WhitePawn, game.GetPiece( Location.C2 ) );
+            Assert.AreEqual( Piece.WhitePawn, game.GetPiece( Location.D2 ) );
+            Assert.AreEqual( Piece.WhitePawn, game.GetPiece( Location.E2 ) );
+            Assert.AreEqual( Piece.WhitePawn, game.GetPiece( Location.F2 ) );
+            Assert.AreEqual( Piece.WhitePawn, game.GetPiece( Location.G2 ) );
+            Assert.AreEqual( Piece.WhitePawn, game.GetPiece( Location.H2 ) );
+            Assert.AreEqual( Piece.WhiteRook, game.GetPiece( Location.A1 ) );
+            Assert.AreEqual( Piece.WhiteKnight, game.GetPiece( Location.B1 ) );
+            Assert.AreEqual( Piece.WhiteBishop, game.GetPiece( Location.C1 ) );
+            Assert.AreEqual( Piece.WhiteKing, game.GetPiece( Location.D1 ) );
+            Assert.AreEqual( Piece.WhiteQueen, game.GetPiece( Location.E1 ) );
+            Assert.AreEqual( Piece.WhiteBishop, game.GetPiece( Location.F1 ) );
+            Assert.AreEqual( Piece.WhiteKnight, game.GetPiece( Location.G1 ) );
+            Assert.AreEqual( Piece.WhiteRook, game.GetPiece( Location.H1 ) );
+
+            Assert.AreEqual( Piece.BlackPawn, game.GetPiece( Location.A7 ) );
+            Assert.AreEqual( Piece.BlackPawn, game.GetPiece( Location.B7 ) );
+            Assert.AreEqual( Piece.BlackPawn, game.GetPiece( Location.C7 ) );
+            Assert.AreEqual( Piece.BlackPawn, game.GetPiece( Location.D7 ) );
+            Assert.AreEqual( Piece.BlackPawn, game.GetPiece( Location.E7 ) );
+            Assert.AreEqual( Piece.BlackPawn, game.GetPiece( Location.F7 ) );
+            Assert.AreEqual( Piece.BlackPawn, game.GetPiece( Location.G7 ) );
+            Assert.AreEqual( Piece.BlackPawn, game.GetPiece( Location.H7 ) );
+            Assert.AreEqual( Piece.BlackRook, game.GetPiece( Location.A8 ) );
+            Assert.AreEqual( Piece.BlackKnight, game.GetPiece( Location.B8 ) );
+            Assert.AreEqual( Piece.BlackBishop, game.GetPiece( Location.C8 ) );
+            Assert.AreEqual( Piece.BlackKing, game.GetPiece( Location.D8 ) );
+            Assert.AreEqual( Piece.BlackQueen, game.GetPiece( Location.E8 ) );
+            Assert.AreEqual( Piece.BlackBishop, game.GetPiece( Location.F8 ) );
+            Assert.AreEqual( Piece.BlackKnight, game.GetPiece( Location.G8 ) );
+            Assert.AreEqual( Piece.BlackRook, game.GetPiece( Location.H8 ) );
+        }
+
+        private static Game LoadGame()
+        {
             Game game;
-            using (var stream = new MemoryStream())
+            using ( var stream = new MemoryStream() )
             {
-                //Arrange
-                using (var sw = new StreamWriter(stream) { AutoFlush = true })
+                using ( var sw = new StreamWriter( stream ) { AutoFlush = true } )
                 {
-                    sw.Write(PGN);
+                    sw.Write( PGN );
 
                     stream.Position = 0;
-                    //Act
-                    game = Game.Load(stream);
+                    game = Game.Load( stream );
                 }
             }
-
-
-
-            //Assert
-            Assert.IsNotNull(game);
-
-            Assert.AreEqual(@"F/S Return Match", game.TagPairs["Event"]);
-            Assert.AreEqual(@"F/S Return Match", game.Event);
-            Assert.AreEqual(@"Belgrade, Serbia JUG", game.TagPairs["Site"]);
-            Assert.AreEqual(@"Belgrade, Serbia JUG", game.Site);
-            Assert.AreEqual(@"1992.11.04", game.TagPairs["Date"]);
-            Assert.AreEqual(new DateTime(1992, 11,4), game.Date);
-            Assert.AreEqual(@"29", game.TagPairs["Round"]);
-            Assert.AreEqual(29, game.Round);
-            Assert.AreEqual(@"Fischer, Robert J.", game.TagPairs["White"]);
-            Assert.AreEqual(@"Fischer, Robert J.", game.WhitePlayer);
-            Assert.AreEqual(@"Spassky, Boris V.", game.TagPairs["Black"]);
-            Assert.AreEqual(@"Spassky, Boris V.", game.BlackPlayer);
-            Assert.AreEqual(@"1/2-1/2", game.TagPairs["Result"]);
-            Assert.AreEqual(GameResult.Draw, game.Result);
-            Assert.AreEqual(@"Thing 1:Thing 2", game.TagPairs["Things"]);
-
-
+            return game;
         }
     }
 }

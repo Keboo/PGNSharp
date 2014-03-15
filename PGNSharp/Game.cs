@@ -146,5 +146,10 @@ namespace PGNSharp
         {
             
         }
+
+        public Piece GetPiece( Location location )
+        {
+            throw new NotImplementedException();
+        }
     }
 }
