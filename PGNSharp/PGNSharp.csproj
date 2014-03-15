@@ -43,6 +43,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="GameResult.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="Move.cs" />
     <Compile Include="Piece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

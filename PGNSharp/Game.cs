@@ -9,9 +9,11 @@ namespace PGNSharp
     public class Game
     {
         private static readonly Regex _tagPairsRegex = new Regex("(?<=\\s*\\[\\s*)(?<Name>\\w*?)(?:\\s+\")(?<Value>.*?)(?=\"\\s*\\])");
-        
+        private static readonly Regex _moveRegex = new Regex(@"((?<MoveNumber>\d+)\.*)?\ (?<WhiteMove>([PNBRQK]?([a-h][1-8]?x?)?[a-h][1-8])|(O-O(-O)?))\ (?<BlackMove>([PNBRQK]?([a-h][1-8]?x?)?[a-h][1-8])|(O-O(-O)?))(?=(\ |$))");
+
         private readonly Dictionary<string, string> _tagPairs = new Dictionary<string, string>();
         private readonly Board _board = new Board();
+        private readonly List<Move> _moves = new List<Move>(); 
 
         private Game()
         {
@@ -137,12 +139,17 @@ namespace PGNSharp
                 rv._tagPairs[name] = value;
             }
 
-            return rv;
-        }
+            foreach (Match match in _moveRegex.Matches(pgn))
+            {
+                string whiteMove = match.Groups["WhiteMove"].Value;
+                string blackMove = match.Groups["BlackMove"].Value;
 
-        private static void ParseTagPairs(string pgn)
-        {
-            
+
+
+                //rv._moves.Add(new Move());
+            }
+
+            return rv;
         }
 
         public Piece GetPiece( Location location )

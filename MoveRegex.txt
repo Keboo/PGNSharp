@@ -1,0 +1,1 @@
+((?<Piece>[PNBRQK]?)((?<From>[a-h][1-8]?)x?)?(?<To>[a-h][1-8]))|(?<Castle>(O-O(-O)?))
