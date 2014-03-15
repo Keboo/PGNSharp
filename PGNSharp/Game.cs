@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace PGNSharp
 {
@@ -13,10 +11,11 @@ namespace PGNSharp
         private static readonly Regex _tagPairsRegex = new Regex("(?<=\\s*\\[\\s*)(?<Name>\\w*?)(?:\\s+\")(?<Value>.*?)(?=\"\\s*\\])");
         
         private readonly Dictionary<string, string> _tagPairs = new Dictionary<string, string>();
+        private readonly Board _board = new Board();
 
         private Game()
         {
-
+            _board.SetupInitialPosition();
         }
 
         //TODO: Make immutable
@@ -121,7 +120,6 @@ namespace PGNSharp
             }
         }
 
-
         public static Game Load(Stream stream)
         {
             var rv = new Game();
@@ -149,7 +147,9 @@ namespace PGNSharp
 
         public Piece GetPiece( Location location )
         {
-            throw new NotImplementedException();
+            //For now it is just the initial starting locations since we have not implemented moving
+            return _board.GetPiece(location);
         }
     }
+
 }

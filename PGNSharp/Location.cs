@@ -7,7 +7,7 @@ namespace PGNSharp
         private readonly int _rank ;
         private readonly char _file;
 
-        private Location( char file, int rank )
+        public Location( char file, int rank )
         {
             file = char.ToUpper(file);
             if (file < 'A' || file > 'H')

@@ -71,8 +71,8 @@ f3 Bc8 34. Kf2 Bf5 35. Ra7 g6 36. Ra6+ Kc5 37. Ke1 Nf4 38. g3 Nxh3 39. Kd2 Kb5
             Assert.AreEqual( Piece.WhiteRook, game.GetPiece( Location.A1 ) );
             Assert.AreEqual( Piece.WhiteKnight, game.GetPiece( Location.B1 ) );
             Assert.AreEqual( Piece.WhiteBishop, game.GetPiece( Location.C1 ) );
-            Assert.AreEqual( Piece.WhiteKing, game.GetPiece( Location.D1 ) );
-            Assert.AreEqual( Piece.WhiteQueen, game.GetPiece( Location.E1 ) );
+            Assert.AreEqual( Piece.WhiteQueen, game.GetPiece( Location.D1 ) );
+            Assert.AreEqual( Piece.WhiteKing, game.GetPiece( Location.E1 ) );
             Assert.AreEqual( Piece.WhiteBishop, game.GetPiece( Location.F1 ) );
             Assert.AreEqual( Piece.WhiteKnight, game.GetPiece( Location.G1 ) );
             Assert.AreEqual( Piece.WhiteRook, game.GetPiece( Location.H1 ) );
@@ -88,8 +88,8 @@ f3 Bc8 34. Kf2 Bf5 35. Ra7 g6 36. Ra6+ Kc5 37. Ke1 Nf4 38. g3 Nxh3 39. Kd2 Kb5
             Assert.AreEqual( Piece.BlackRook, game.GetPiece( Location.A8 ) );
             Assert.AreEqual( Piece.BlackKnight, game.GetPiece( Location.B8 ) );
             Assert.AreEqual( Piece.BlackBishop, game.GetPiece( Location.C8 ) );
-            Assert.AreEqual( Piece.BlackKing, game.GetPiece( Location.D8 ) );
-            Assert.AreEqual( Piece.BlackQueen, game.GetPiece( Location.E8 ) );
+            Assert.AreEqual( Piece.BlackQueen, game.GetPiece( Location.D8 ) );
+            Assert.AreEqual( Piece.BlackKing, game.GetPiece( Location.E8 ) );
             Assert.AreEqual( Piece.BlackBishop, game.GetPiece( Location.F8 ) );
             Assert.AreEqual( Piece.BlackKnight, game.GetPiece( Location.G8 ) );
             Assert.AreEqual( Piece.BlackRook, game.GetPiece( Location.H8 ) );

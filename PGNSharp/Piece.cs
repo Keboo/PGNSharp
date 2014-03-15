@@ -27,6 +27,27 @@ namespace PGNSharp
             get { return _color; }
         }
 
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((Piece) obj);
+        }
+
+        protected bool Equals(Piece other)
+        {
+            return _type == other._type && _color == other._color;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((int)_type * 397) ^ (int)_color;
+            }
+        }
+
         public static Piece WhitePawn
         {
             get { return new Piece(PieceType.Pawn, PieceColor.White); }
