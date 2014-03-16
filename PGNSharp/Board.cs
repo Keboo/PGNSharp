@@ -1,24 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PGNSharp
 {
     public class Board
     {
-        private readonly BoardSpace[][] _board = new BoardSpace[8][];
+        private readonly Piece[][] _board = new Piece[8][];
+        //Even numbered moves are white, odd numbered moves are black
+        private readonly List<Move> _moves = new List<Move>();
+        private int _moveIndex;
 
         internal Board()
         {
             for (int i = 0; i < 8; i++)
             {
-                _board[i] = new BoardSpace[8];
-                for (int j = 0; j < 8; j++)
-                    _board[i][j] = new BoardSpace(new Location((char)('A' + i), j + 1));
+                _board[i] = new Piece[8];
             }
         }
 
         public void SetupInitialPosition()
         {
-            foreach (var space in AllSpaces())
+            foreach (var space in _board)
                 space.Piece = null;
 
             GetSpace(Location.A1).Piece = Piece.WhiteRook;
@@ -44,34 +46,77 @@ namespace PGNSharp
                 GetSpace(new Location((char)(i + 'A'), 7)).Piece = Piece.BlackPawn;
         }
 
-        private BoardSpace GetSpace(Location location)
+        public void AddMove(Move move)
         {
-            var file = location.File - 'A';
-            var rank = location.Rank - 1;
-            return _board[file][rank];
+            if (move == null) throw new ArgumentNullException("move");
+            var foundPiece = GetPiece(move.From);
+            if (move.Piece.Equals(foundPiece) == false)
+                throw new InvalidOperationException();
+            
+            _moves.Add(move);
+
+            NextMove();
         }
 
-        private IEnumerable<BoardSpace> AllSpaces()
+        public Move NextMove()
         {
-            for(int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                    yield return _board[i][j];
-        }
-
-        private class BoardSpace
-        {
-            public Location Location { get; private set; }
-            public Piece Piece { get; set; }
-
-            public BoardSpace(Location location)
+            var move = _moves[_moveIndex++];
+            //TODO: remove duplicate calls to GetSpace
+            //TODO: Handle en passant
+            if (move.IsCastle)
             {
-                Location = location;
+                if (move.To.Equals(Location.G1))
+                {
+                    GetSpace(Location.F1).Piece = GetSpace(Location.H1).Piece;
+                    GetSpace(Location.H1).Piece = null;
+                }
+                else if (move.To.Equals(Location.C1))
+                {
+                    GetSpace(Location.D1).Piece = GetSpace(Location.A1).Piece;
+                    GetSpace(Location.A1).Piece = null;
+                }
+                else if (move.To.Equals(Location.G8))
+                {
+                    GetSpace(Location.F8).Piece = GetSpace(Location.H8).Piece;
+                    GetSpace(Location.H8).Piece = null;
+                }
+                else if (move.To.Equals(Location.C8))
+                {
+                    GetSpace(Location.D8).Piece = GetSpace(Location.A8).Piece;
+                    GetSpace(Location.A8).Piece = null;
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
             }
+            else
+            {
+                GetSpace(move.To).Piece = GetSpace(move.From).Piece;
+                GetSpace(move.From).Piece = null;
+            }
+            return move;
+        }
+
+        public void ResetMoves()
+        {
+            SetupInitialPosition();
+            _moveIndex = 0;
         }
 
         public Piece GetPiece(Location location)
         {
-            return GetSpace(location).Piece;
+            var file = location.File - 'a';
+            var rank = location.Rank - 1;
+            return _board[file][rank];
         }
+
+        private void SetPiece(Location location, Piece piece)
+        {
+            var file = location.File - 'a';
+            var rank = location.Rank - 1;
+            _board[file][rank] = piece;
+        }
+        
     }
 }

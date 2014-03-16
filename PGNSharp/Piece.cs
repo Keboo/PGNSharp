@@ -7,7 +7,7 @@ namespace PGNSharp
         private readonly PieceType _type;
         private readonly PieceColor _color;
 
-        private Piece( PieceType type, PieceColor color )
+        public Piece( PieceType type, PieceColor color )
         {
             if (type == PieceType.None)
                 throw new ArgumentException("Type must be specified");
@@ -48,6 +48,11 @@ namespace PGNSharp
             }
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0} {1}", Color, Type);
+        }
+
         public static Piece WhitePawn
         {
             get { return new Piece(PieceType.Pawn, PieceColor.White); }
@@ -55,7 +60,7 @@ namespace PGNSharp
 
         public static Piece WhiteRook
         {
-            get { return new Piece(PieceType.Rock, PieceColor.White); }
+            get { return new Piece(PieceType.Rook, PieceColor.White); }
         }
 
         public static Piece WhiteKnight
@@ -85,7 +90,7 @@ namespace PGNSharp
 
         public static Piece BlackRook
         {
-            get { return new Piece( PieceType.Rock, PieceColor.Black ); }
+            get { return new Piece( PieceType.Rook, PieceColor.Black ); }
         }
 
         public static Piece BlackKnight
@@ -123,7 +128,7 @@ namespace PGNSharp
         Pawn,
         Knight,
         Bishop,
-        Rock,
+        Rook,
         Queen,
         King
     }

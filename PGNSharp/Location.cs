@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace PGNSharp
 {
@@ -7,10 +8,30 @@ namespace PGNSharp
         private readonly int _rank ;
         private readonly char _file;
 
+        public static Location Parse(string location)
+        {
+            if (location == null) throw new ArgumentNullException("location");
+            if (location.Length != 2) throw new ArgumentException(string.Format("Could not parse '{0}' and a location", location));
+
+            int rank = int.Parse(location[1].ToString(CultureInfo.InvariantCulture));
+            return new Location(location[0], rank);
+        }
+
+        public static Location FromOffset(Location location, int fileOffset, int rankOffset)
+        {
+            var rank = location.Rank + rankOffset;
+            var file = (char) (location.File + fileOffset);
+            if (rank < 1 || rank > 8)
+                return null;
+            if (file < 'a' || file > 'h')
+                return null;
+            return new Location(file, rank);
+        }
+
         public Location( char file, int rank )
         {
-            file = char.ToUpper(file);
-            if (file < 'A' || file > 'H')
+            file = char.ToLower(file);
+            if (file < 'a' || file > 'h')
                 throw new ArgumentException("File must be between 'A' and 'H'");
             if (rank < 1 || rank > 8)
                 throw new ArgumentException("Rank must be between 1 and 8");
@@ -47,6 +68,11 @@ namespace PGNSharp
             {
                 return ( _rank * 397 ) ^ _file.GetHashCode();
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Concat(File, Rank);
         }
 
         public static Location A1
