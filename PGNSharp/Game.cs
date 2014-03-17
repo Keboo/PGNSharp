@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -377,6 +378,11 @@ namespace PGNSharp
                 default:
                     throw new InvalidOperationException(string.Format("Could not find piece for '{0}'", piece));
             }
+        }
+
+        public void NextMove()
+        {
+            _board.NextMove();
         }
     }
 
