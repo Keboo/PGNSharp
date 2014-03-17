@@ -175,16 +175,20 @@ namespace PGNSharp
             {
                 Location targetLocation = Location.Parse(toLocation);
 
-                Location sourceLocation = false == string.IsNullOrEmpty(fromLocation)
-                    ? Location.Parse(fromLocation)
-                    : GetSourceLocation(piece, targetLocation);
+                Location sourceLocation;
+                if (false == Location.TryParse(fromLocation, out sourceLocation))
+                {
+                    sourceLocation = GetSourceLocation(piece, targetLocation, fromLocation);
+                }
 
                 if (sourceLocation == null)
                     throw new Exception(string.Format("Could not find the original location '{0}'", fromLocation));
+
+                _board.AddMove(new Move(piece, sourceLocation, targetLocation));
             }
         }
 
-        private Location GetSourceLocation(Piece piece, Location destinationLocation)
+        private Location GetSourceLocation(Piece piece, Location destinationLocation, string fromLocationHint)
         {
             if (piece == null) throw new ArgumentNullException("piece");
             if (destinationLocation == null) throw new ArgumentNullException("destinationLocation");
@@ -192,22 +196,22 @@ namespace PGNSharp
             switch (piece.Type)
             {
                 case PieceType.Pawn:
-                    return GetPawnSourceLocation(piece, destinationLocation);
+                    return GetPawnSourceLocation(piece, destinationLocation, fromLocationHint);
                 case PieceType.Rook:
-                    return GetRookSourceLocation(piece, destinationLocation);
+                    return GetRookSourceLocation(piece, destinationLocation, fromLocationHint);
                 case PieceType.Knight:
-                    return GetKnightSourceLocation(piece, destinationLocation);
+                    return GetKnightSourceLocation(piece, destinationLocation, fromLocationHint);
                 case PieceType.Bishop:
-                    return GetBishopSourceLocation(piece, destinationLocation);
+                    return GetBishopSourceLocation(piece, destinationLocation, fromLocationHint);
                 case PieceType.King:
                     return GetKingSourceLocation(piece, destinationLocation);
                 case PieceType.Queen:
-                    return GetQueenSourceLocation(piece, destinationLocation);
+                    return GetQueenSourceLocation(piece, destinationLocation, fromLocationHint);
             }
             throw new InvalidOperationException();
         }
 
-        private Location GetPawnSourceLocation(Piece pawn, Location destinationLocation)
+        private Location GetPawnSourceLocation(Piece pawn, Location destinationLocation, string fromLocationHint)
         {
             //Check if the space was occupied
             var previousPiece = GetPiece(destinationLocation);
@@ -216,12 +220,12 @@ namespace PGNSharp
                 //It was a capture check the diagonals
                 //TODO: Validate that both locations do not contain a valid pawn
                 var leftLocation = Location.FromOffset(destinationLocation, -1, pawn.Color == PieceColor.White ? -1 : 1);
-                if (leftLocation != null && pawn.Equals(GetPiece(leftLocation)))
+                if (leftLocation != null && pawn.Equals(GetPiece(leftLocation)) && leftLocation.MatchesHint(fromLocationHint))
                 {
                     return leftLocation;
                 }
                 var rightLocation = Location.FromOffset(destinationLocation, 1, pawn.Color == PieceColor.White ? -1 : 1);
-                if (rightLocation != null && pawn.Equals(GetPiece(rightLocation)))
+                if (rightLocation != null && pawn.Equals(GetPiece(rightLocation)) && rightLocation.MatchesHint(fromLocationHint))
                 {
                     return rightLocation;
                 }
@@ -250,51 +254,51 @@ namespace PGNSharp
             return null;
         }
 
-        private Location GetRookSourceLocation(Piece rook, Location destinationLocation)
+        private Location GetRookSourceLocation(Piece rook, Location destinationLocation, string fromLocationHint)
         {
             return
-                FindSourceLocationForPieceWithStrategy(rook, destinationLocation, l => Location.FromOffset(l, 0, -1)) ??
-                FindSourceLocationForPieceWithStrategy(rook, destinationLocation, l => Location.FromOffset(l, 0, 1)) ??
-                FindSourceLocationForPieceWithStrategy(rook, destinationLocation, l => Location.FromOffset(l, -1, 0)) ??
-                FindSourceLocationForPieceWithStrategy(rook, destinationLocation, l => Location.FromOffset(l, 1, 0));
+                FindSourceLocationForPieceWithStrategy(rook, destinationLocation, l => Location.FromOffset(l, 0, -1), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(rook, destinationLocation, l => Location.FromOffset(l, 0, 1), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(rook, destinationLocation, l => Location.FromOffset(l, -1, 0), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(rook, destinationLocation, l => Location.FromOffset(l, 1, 0), fromLocationHint);
         }
 
-        private Location GetKnightSourceLocation(Piece knight, Location destinationLocation)
+        private Location GetKnightSourceLocation(Piece knight, Location destinationLocation, string fromLocationHint)
         {
             var location = Location.FromOffset(destinationLocation, 2, 1);
-            if (location != null && knight.Equals(GetPiece(location)))
+            if (location != null && knight.Equals(GetPiece(location)) && location.MatchesHint(fromLocationHint))
                 return location;
             location = Location.FromOffset(destinationLocation, 2, -1);
-            if (location != null && knight.Equals(GetPiece(location)))
+            if (location != null && knight.Equals(GetPiece(location)) && location.MatchesHint(fromLocationHint))
                 return location;
             location = Location.FromOffset(destinationLocation, 1, -2);
-            if (location != null && knight.Equals(GetPiece(location)))
+            if (location != null && knight.Equals(GetPiece(location)) && location.MatchesHint(fromLocationHint))
                 return location;
             location = Location.FromOffset(destinationLocation, -1, -2);
-            if (location != null && knight.Equals(GetPiece(location)))
+            if (location != null && knight.Equals(GetPiece(location)) && location.MatchesHint(fromLocationHint))
                 return location;
             location = Location.FromOffset(destinationLocation, -2, -1);
-            if (location != null && knight.Equals(GetPiece(location)))
+            if (location != null && knight.Equals(GetPiece(location)) && location.MatchesHint(fromLocationHint))
                 return location;
             location = Location.FromOffset(destinationLocation, -2, 1);
-            if (location != null && knight.Equals(GetPiece(location)))
+            if (location != null && knight.Equals(GetPiece(location)) && location.MatchesHint(fromLocationHint))
                 return location;
             location = Location.FromOffset(destinationLocation, -1, 2);
-            if (location != null && knight.Equals(GetPiece(location)))
+            if (location != null && knight.Equals(GetPiece(location)) && location.MatchesHint(fromLocationHint))
                 return location;
             location = Location.FromOffset(destinationLocation, 1, 2);
-            if (location != null && knight.Equals(GetPiece(location)))
+            if (location != null && knight.Equals(GetPiece(location)) && location.MatchesHint(fromLocationHint))
                 return location;
             return null;
         }
 
-        private Location GetBishopSourceLocation(Piece bishop, Location destinationLocation)
+        private Location GetBishopSourceLocation(Piece bishop, Location destinationLocation, string fromLocationHint)
         {
             return
-                FindSourceLocationForPieceWithStrategy(bishop, destinationLocation, l => Location.FromOffset(l, -1, -1)) ??
-                FindSourceLocationForPieceWithStrategy(bishop, destinationLocation, l => Location.FromOffset(l, -1, 1)) ??
-                FindSourceLocationForPieceWithStrategy(bishop, destinationLocation, l => Location.FromOffset(l, 1, 1)) ??
-                FindSourceLocationForPieceWithStrategy(bishop, destinationLocation, l => Location.FromOffset(l, 1, -1));
+                FindSourceLocationForPieceWithStrategy(bishop, destinationLocation, l => Location.FromOffset(l, -1, -1), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(bishop, destinationLocation, l => Location.FromOffset(l, -1, 1), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(bishop, destinationLocation, l => Location.FromOffset(l, 1, 1), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(bishop, destinationLocation, l => Location.FromOffset(l, 1, -1), fromLocationHint);
 
         }
 
@@ -314,20 +318,20 @@ namespace PGNSharp
             return locations.FirstOrDefault(location => king.Equals(GetPiece(location)));
         }
 
-        private Location GetQueenSourceLocation(Piece queen, Location destinationLocation)
+        private Location GetQueenSourceLocation(Piece queen, Location destinationLocation, string fromLocationHint)
         {
             return
-                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, 0, 1)) ??
-                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, 1, 1)) ??
-                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, 1, 0)) ??
-                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, 1, -1)) ??
-                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, 0, -1)) ??
-                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, -1, -1)) ??
-                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, -1, 0)) ??
-                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, -1, 1));
+                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, 0, 1), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, 1, 1), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, 1, 0), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, 1, -1), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, 0, -1), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, -1, -1), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, -1, 0), fromLocationHint) ??
+                FindSourceLocationForPieceWithStrategy(queen, destinationLocation, l => Location.FromOffset(l, -1, 1), fromLocationHint);
         }
 
-        private Location FindSourceLocationForPieceWithStrategy(Piece piece, Location destinationLocation, Func<Location, Location> strategy)
+        private Location FindSourceLocationForPieceWithStrategy(Piece piece, Location destinationLocation, Func<Location, Location> strategy, string locationHint)
         {
             for (Location location = strategy(destinationLocation);
                 location != null;
@@ -336,7 +340,7 @@ namespace PGNSharp
                 var foundPiece = GetPiece(location);
                 if (foundPiece != null)
                 {
-                    if (piece.Equals(foundPiece))
+                    if (piece.Equals(foundPiece) && location.MatchesHint(locationHint))
                         return location;
                     break;
                 }

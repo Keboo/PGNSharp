@@ -17,6 +17,21 @@ namespace PGNSharp
             return new Location(location[0], rank);
         }
 
+        public static bool TryParse(string locationString, out Location location)
+        {
+            location = null;
+            if (locationString == null) return false;
+            if (locationString.Length != 2) return false;
+
+            int rank;
+            if (int.TryParse(locationString[1].ToString(CultureInfo.InvariantCulture), out rank))
+            {
+                location = new Location(locationString[0], rank);
+                return true;
+            }
+            return false;
+        }
+
         public static Location FromOffset(Location location, int fileOffset, int rankOffset)
         {
             var rank = location.Rank + rankOffset;
@@ -47,6 +62,15 @@ namespace PGNSharp
         public char File
         {
             get { return _file; }
+        }
+
+        public bool MatchesHint(string fromLocationHint)
+        {
+            if (string.IsNullOrEmpty(fromLocationHint))
+                return true; //No hint so assume a match
+            return fromLocationHint.Equals(ToString()) ||
+                   fromLocationHint.Equals(File.ToString(CultureInfo.InvariantCulture)) ||
+                   fromLocationHint.Equals(Rank.ToString(CultureInfo.InvariantCulture));
         }
 
         public override bool Equals( object obj )

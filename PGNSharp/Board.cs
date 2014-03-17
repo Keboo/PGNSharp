@@ -20,30 +20,31 @@ namespace PGNSharp
 
         public void SetupInitialPosition()
         {
-            foreach (var space in _board)
-                space.Piece = null;
+            for(int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                    _board[i][j] = null;
 
-            GetSpace(Location.A1).Piece = Piece.WhiteRook;
-            GetSpace(Location.B1).Piece = Piece.WhiteKnight;
-            GetSpace(Location.C1).Piece = Piece.WhiteBishop;
-            GetSpace(Location.D1).Piece = Piece.WhiteQueen;
-            GetSpace(Location.E1).Piece = Piece.WhiteKing;
-            GetSpace(Location.F1).Piece = Piece.WhiteBishop;
-            GetSpace(Location.G1).Piece = Piece.WhiteKnight;
-            GetSpace(Location.H1).Piece = Piece.WhiteRook;
+            SetPiece(Location.A1, Piece.WhiteRook);
+            SetPiece(Location.B1, Piece.WhiteKnight);
+            SetPiece(Location.C1, Piece.WhiteBishop);
+            SetPiece(Location.D1, Piece.WhiteQueen);
+            SetPiece(Location.E1, Piece.WhiteKing);
+            SetPiece(Location.F1, Piece.WhiteBishop);
+            SetPiece(Location.G1, Piece.WhiteKnight);
+            SetPiece(Location.H1, Piece.WhiteRook);
             for (int i = 0; i < 8; i++)
-                GetSpace(new Location((char)(i + 'A'), 2)).Piece = Piece.WhitePawn;
+                SetPiece( new Location((char)('a' + i), 2), Piece.WhitePawn);
 
-            GetSpace(Location.A8).Piece = Piece.BlackRook;
-            GetSpace(Location.B8).Piece = Piece.BlackKnight;
-            GetSpace(Location.C8).Piece = Piece.BlackBishop;
-            GetSpace(Location.D8).Piece = Piece.BlackQueen;
-            GetSpace(Location.E8).Piece = Piece.BlackKing;
-            GetSpace(Location.F8).Piece = Piece.BlackBishop;
-            GetSpace(Location.G8).Piece = Piece.BlackKnight;
-            GetSpace(Location.H8).Piece = Piece.BlackRook;
+            SetPiece(Location.A8, Piece.BlackRook);
+            SetPiece(Location.B8, Piece.BlackKnight);
+            SetPiece(Location.C8, Piece.BlackBishop);
+            SetPiece(Location.D8, Piece.BlackQueen);
+            SetPiece(Location.E8, Piece.BlackKing);
+            SetPiece(Location.F8, Piece.BlackBishop);
+            SetPiece(Location.G8, Piece.BlackKnight);
+            SetPiece(Location.H8, Piece.BlackRook);
             for (int i = 0; i < 8; i++)
-                GetSpace(new Location((char)(i + 'A'), 7)).Piece = Piece.BlackPawn;
+                SetPiece(new Location((char)(i + 'a'), 7), Piece.BlackPawn);
         }
 
         public void AddMove(Move move)
@@ -67,23 +68,23 @@ namespace PGNSharp
             {
                 if (move.To.Equals(Location.G1))
                 {
-                    GetSpace(Location.F1).Piece = GetSpace(Location.H1).Piece;
-                    GetSpace(Location.H1).Piece = null;
+                    SetPiece(Location.F1, GetPiece(Location.H1));
+                    SetPiece(Location.H1, null);
                 }
                 else if (move.To.Equals(Location.C1))
                 {
-                    GetSpace(Location.D1).Piece = GetSpace(Location.A1).Piece;
-                    GetSpace(Location.A1).Piece = null;
+                    SetPiece(Location.D1, GetPiece(Location.A1));
+                    SetPiece(Location.A1, null);
                 }
                 else if (move.To.Equals(Location.G8))
                 {
-                    GetSpace(Location.F8).Piece = GetSpace(Location.H8).Piece;
-                    GetSpace(Location.H8).Piece = null;
+                    SetPiece(Location.F8, GetPiece(Location.H8));
+                    SetPiece(Location.H8, null);
                 }
                 else if (move.To.Equals(Location.C8))
                 {
-                    GetSpace(Location.D8).Piece = GetSpace(Location.A8).Piece;
-                    GetSpace(Location.A8).Piece = null;
+                    SetPiece(Location.D8, GetPiece(Location.A8));
+                    SetPiece(Location.A8, null);
                 }
                 else
                 {
@@ -92,8 +93,8 @@ namespace PGNSharp
             }
             else
             {
-                GetSpace(move.To).Piece = GetSpace(move.From).Piece;
-                GetSpace(move.From).Piece = null;
+                SetPiece(move.To, GetPiece(move.From));
+                SetPiece(move.From, null);
             }
             return move;
         }
