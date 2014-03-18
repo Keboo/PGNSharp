@@ -11,9 +11,17 @@ namespace PGNSharp
 
         public Move(Piece piece, Location from, Location to)
         {
+            if (piece == null) throw new ArgumentNullException("piece");
+            if (@from == null) throw new ArgumentNullException("from");
+            if (to == null) throw new ArgumentNullException("to");
             From = from;
             To = to;
             Piece = piece;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} from {1} to {2}", Piece, From, To);
         }
 
         public static Move GetCastle(PieceColor color, BoardSide side)

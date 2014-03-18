@@ -10,7 +10,7 @@ namespace PGNSharp
     public class Game
     {
         private static readonly Regex _tagPairsRegex = new Regex("(?<=\\s*\\[\\s*)(?<Name>\\w*?)(?:\\s+\")(?<Value>.*?)(?=\"\\s*\\])");
-        private static readonly Regex _moveRegex = new Regex(@"((?<MoveNumber>\d+)\.*)?\s+(?<WhiteMove>((?<WhitePiece>[PNBRQK]?)((?<WhiteFrom>[a-h][1-8]?)x?)?(?<WhiteTo>[a-h][1-8]))|(?<WhiteCastle>(O-O(-O)?)))\ (?<BlackMove>((?<BlackPiece>[PNBRQK]?)((?<BlackFrom>[a-h][1-8]?)x?)?(?<BlackTo>[a-h][1-8]))|(?<BlackCastle>(O-O(-O)?)))(?=(\ |$))", RegexOptions.Multiline);
+        private static readonly string _moveRegexPattern = @"((?<MoveNumber>\d+)\.*)?\s+(?<WhiteMove>((?<WhitePiece>[PNBRQK]?)((?<WhiteFrom>[a-h][1-8]?)?x?)(?<WhiteTo>[a-h][1-8])\+?)|(O-O(-O)?))\s+(?<BlackMove>((?<BlackPiece>[PNBRQK]?)((?<BlackFrom>[a-h][1-8]?)?x?)(?<BlackTo>[a-h][1-8])\+?)|((O-O(-O)?)|({0})))(?=(\s+|$))";
 
         private readonly Dictionary<string, string> _tagPairs = new Dictionary<string, string>();
         private readonly Board _board = new Board();
@@ -139,21 +139,18 @@ namespace PGNSharp
                 rv._tagPairs[name] = value;
             }
 
-            
+            var moveRegex = new Regex(string.Format(_moveRegexPattern, rv.TagPairs["Result"]));
 
-            foreach (Match match in _moveRegex.Matches(pgn))
+            foreach (Match match in moveRegex.Matches(pgn))
             {
-                //These are also available
-
+                //This is also available
                 //string moveNumber = match.Groups["MoveNumber"].Value;
-                //string whiteMove = match.Groups["WhiteMove"].Value;
-                //string blackMove = match.Groups["BlackMove"].Value;
                 
                 Piece whitePiece = GetPieceFromLetter(match.Groups["WhitePiece"].Value, PieceColor.White);
-                rv.AddMove(match.Groups["WhiteCastle"].Value, whitePiece, match.Groups["WhiteFrom"].Value, match.Groups["WhiteTo"].Value);
+                rv.AddMove(match.Groups["WhiteMove"].Value, whitePiece, match.Groups["WhiteFrom"].Value, match.Groups["WhiteTo"].Value);
 
                 Piece blackPiece = GetPieceFromLetter(match.Groups["BlackPiece"].Value, PieceColor.Black);                
-                rv.AddMove(match.Groups["BlackCastle"].Value, blackPiece, match.Groups["BlackFrom"].Value, match.Groups["BlackTo"].Value);
+                rv.AddMove(match.Groups["BlackMove"].Value, blackPiece, match.Groups["BlackFrom"].Value, match.Groups["BlackTo"].Value);
             }
 
             //Put the pieces back to the beginning.
@@ -162,16 +159,21 @@ namespace PGNSharp
             return rv;
         }
 
-        private void AddMove(string castle, Piece piece, string fromLocation, string toLocation)
+        private void AddMove(string move, Piece piece, string fromLocation, string toLocation)
         {
-            if (false == string.IsNullOrEmpty(castle))
+            if (string.IsNullOrEmpty(fromLocation) && string.IsNullOrEmpty(toLocation))
             {
-                if (castle == "O-O")
-                    _board.AddMove(Move.GetCastle(PieceColor.White, BoardSide.KingSide));
-                else if (castle == "O-O-O")
-                    _board.AddMove(Move.GetCastle(PieceColor.White, BoardSide.QueenSide));
+                if (move == "O-O")
+                    _board.AddMove(Move.GetCastle(piece.Color, BoardSide.KingSide));
+                else if (move == "O-O-O")
+                    _board.AddMove(Move.GetCastle(piece.Color, BoardSide.QueenSide));
                 else
-                    throw new InvalidOperationException(string.Format("Castle pattern '{0}' is unknown", castle));
+                {
+                    string result;
+                    if (TagPairs.TryGetValue("Result", out result) && result == move)
+                        return;
+                    throw new InvalidOperationException(string.Format("Castle pattern '{0}' is unknown", move));
+                }
             }
             else
             {
