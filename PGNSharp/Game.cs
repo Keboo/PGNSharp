@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,7 +10,7 @@ namespace PGNSharp
     public class Game
     {
         private static readonly Regex _tagPairsRegex = new Regex("(?<=\\s*\\[\\s*)(?<Name>\\w*?)(?:\\s+\")(?<Value>.*?)(?=\"\\s*\\])");
-        private static readonly Regex _moveRegex = new Regex(@"((?<MoveNumber>\d+)\.*)?\ (?<WhiteMove>((?<WhitePiece>[PNBRQK]?)((?<WhiteFrom>[a-h][1-8]?)x?)?(?<WhiteTo>[a-h][1-8]))|(?<WhiteCastle>(O-O(-O)?)))\ (?<BlackMove>((?<BlackPiece>[PNBRQK]?)((?<BlackFrom>[a-h][1-8]?)x?)?(?<BlackTo>[a-h][1-8]))|(?<BlackCastle>(O-O(-O)?)))(?=(\ |$))");
+        private static readonly Regex _moveRegex = new Regex(@"((?<MoveNumber>\d+)\.*)?\s+(?<WhiteMove>((?<WhitePiece>[PNBRQK]?)((?<WhiteFrom>[a-h][1-8]?)x?)?(?<WhiteTo>[a-h][1-8]))|(?<WhiteCastle>(O-O(-O)?)))\ (?<BlackMove>((?<BlackPiece>[PNBRQK]?)((?<BlackFrom>[a-h][1-8]?)x?)?(?<BlackTo>[a-h][1-8]))|(?<BlackCastle>(O-O(-O)?)))(?=(\ |$))", RegexOptions.Multiline);
 
         private readonly Dictionary<string, string> _tagPairs = new Dictionary<string, string>();
         private readonly Board _board = new Board();
@@ -140,6 +139,8 @@ namespace PGNSharp
                 rv._tagPairs[name] = value;
             }
 
+            
+
             foreach (Match match in _moveRegex.Matches(pgn))
             {
                 //These are also available
@@ -183,7 +184,7 @@ namespace PGNSharp
                 }
 
                 if (sourceLocation == null)
-                    throw new Exception(string.Format("Could not find the original location '{0}'", fromLocation));
+                    throw new Exception(string.Format("Could not find {2}'s original location '{0}' going to '{1}'", fromLocation ?? "<unknonw>", targetLocation, piece));
 
                 _board.AddMove(new Move(piece, sourceLocation, targetLocation));
             }

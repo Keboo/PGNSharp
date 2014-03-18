@@ -46,8 +46,6 @@ namespace PGNSharp
             SetPiece( Location.H8, Piece.BlackRook );
             for ( int i = 0; i < 8; i++ )
                 SetPiece( new Location( (char)( i + 'a' ), 7 ), Piece.BlackPawn );
-
-            DebugBoard();
         }
 
         public void AddMove( Move move )
@@ -94,11 +92,9 @@ namespace PGNSharp
                     throw new InvalidOperationException();
                 }
             }
-            else
-            {
-                SetPiece( move.To, GetPiece( move.From ) );
-                SetPiece( move.From, null );
-            }
+            SetPiece( move.To, GetPiece( move.From ) );
+            SetPiece( move.From, null );
+
             DebugBoard();
             return move;
         }
@@ -123,9 +119,10 @@ namespace PGNSharp
             _board[file][rank] = piece;
         }
 
-        [Conditional("DEBUG")]
+        [Conditional( "DEBUG" )]
         private void DebugBoard()
         {
+            Debug.WriteLine( "Move {0} {1}", ( ( _moves.Count - 1 ) / 2 ) + 1, ( _moves.Count % 2 == 0 ) ? "Black" : "White" );
             Debug.WriteLine( "   -----------------" );
             for ( int i = 7; i >= 0; i-- )
             {
@@ -140,22 +137,22 @@ namespace PGNSharp
                         switch ( piece.Type )
                         {
                             case PieceType.Pawn:
-                                Debug.Write( "P " );
+                                Debug.Write( piece.Color == PieceColor.White ? "P " : "p " );
                                 break;
                             case PieceType.Rook:
-                                Debug.Write( "R " );
+                                Debug.Write( piece.Color == PieceColor.White ? "R " : "r " );
                                 break;
                             case PieceType.Knight:
-                                Debug.Write( "N " );
+                                Debug.Write( piece.Color == PieceColor.White ? "N " : "n " );
                                 break;
                             case PieceType.Bishop:
-                                Debug.Write( "B " );
+                                Debug.Write( piece.Color == PieceColor.White ? "B " : "b " );
                                 break;
                             case PieceType.Queen:
-                                Debug.Write( "Q " );
+                                Debug.Write( piece.Color == PieceColor.White ? "Q " : "q " );
                                 break;
                             case PieceType.King:
-                                Debug.Write( "K " );
+                                Debug.Write( piece.Color == PieceColor.White ? "K " : "k " );
                                 break;
                         }
                     }
