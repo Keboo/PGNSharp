@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PGNSharp", "PGNSharp\PGNSharp.csproj", "{4E58CFCC-3E72-4815-88CD-A519B3A2E174}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PGNSharpTests", "PGNSharpTests\PGNSharpTests.csproj", "{B13D7D30-893D-427F-9990-3DE176D8992C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PGNSharp.Core", "PGNSharp.Core\PGNSharp.Core.csproj", "{CF1A3DAE-B67F-432F-887C-74F090FD013B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,17 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4E58CFCC-3E72-4815-88CD-A519B3A2E174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E58CFCC-3E72-4815-88CD-A519B3A2E174}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E58CFCC-3E72-4815-88CD-A519B3A2E174}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E58CFCC-3E72-4815-88CD-A519B3A2E174}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B13D7D30-893D-427F-9990-3DE176D8992C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B13D7D30-893D-427F-9990-3DE176D8992C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B13D7D30-893D-427F-9990-3DE176D8992C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B13D7D30-893D-427F-9990-3DE176D8992C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF1A3DAE-B67F-432F-887C-74F090FD013B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF1A3DAE-B67F-432F-887C-74F090FD013B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF1A3DAE-B67F-432F-887C-74F090FD013B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF1A3DAE-B67F-432F-887C-74F090FD013B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = PGNSharpTests\PGNSharpTests.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
