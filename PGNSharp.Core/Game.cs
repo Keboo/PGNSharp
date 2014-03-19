@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace PGNSharp
+namespace PGNSharp.Core
 {
     public class Game
     {

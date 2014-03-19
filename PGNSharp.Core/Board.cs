@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
-namespace PGNSharp
+namespace PGNSharp.Core
 {
     public class Board
     {
@@ -95,7 +94,6 @@ namespace PGNSharp
             SetPiece( move.To, GetPiece( move.From ) );
             SetPiece( move.From, null );
 
-            DebugBoard();
             return move;
         }
 
@@ -119,48 +117,48 @@ namespace PGNSharp
             _board[file][rank] = piece;
         }
 
-        [Conditional( "DEBUG" )]
-        private void DebugBoard()
-        {
-            Debug.WriteLine( "Move {0} {1}", ( ( _moves.Count - 1 ) / 2 ) + 1, ( _moves.Count % 2 == 0 ) ? "Black" : "White" );
-            Debug.WriteLine( "   -----------------" );
-            for ( int i = 7; i >= 0; i-- )
-            {
-                Debug.Write( string.Format( "{0} | ", i + 1 ) );
-                for ( int j = 0; j < 8; j++ )
-                {
-                    var piece = _board[j][i];
-                    if ( piece == null )
-                        Debug.Write( "- " );
-                    else
-                    {
-                        switch ( piece.Type )
-                        {
-                            case PieceType.Pawn:
-                                Debug.Write( piece.Color == PieceColor.White ? "P " : "p " );
-                                break;
-                            case PieceType.Rook:
-                                Debug.Write( piece.Color == PieceColor.White ? "R " : "r " );
-                                break;
-                            case PieceType.Knight:
-                                Debug.Write( piece.Color == PieceColor.White ? "N " : "n " );
-                                break;
-                            case PieceType.Bishop:
-                                Debug.Write( piece.Color == PieceColor.White ? "B " : "b " );
-                                break;
-                            case PieceType.Queen:
-                                Debug.Write( piece.Color == PieceColor.White ? "Q " : "q " );
-                                break;
-                            case PieceType.King:
-                                Debug.Write( piece.Color == PieceColor.White ? "K " : "k " );
-                                break;
-                        }
-                    }
-                }
-                Debug.WriteLine( "|" );
-            }
-            Debug.WriteLine( "   -----------------" );
-            Debug.WriteLine( "    A B C D E F G H" );
-        }
+        //[Conditional( "DEBUG" )]
+        //private void DebugBoard()
+        //{
+        //    Debug.WriteLine( "Move {0} {1}", ( ( _moves.Count - 1 ) / 2 ) + 1, ( _moves.Count % 2 == 0 ) ? "Black" : "White" );
+        //    Debug.WriteLine( "   -----------------" );
+        //    for ( int i = 7; i >= 0; i-- )
+        //    {
+        //        Debug.Write( string.Format( "{0} | ", i + 1 ) );
+        //        for ( int j = 0; j < 8; j++ )
+        //        {
+        //            var piece = _board[j][i];
+        //            if ( piece == null )
+        //                Debug.Write( "- " );
+        //            else
+        //            {
+        //                switch ( piece.Type )
+        //                {
+        //                    case PieceType.Pawn:
+        //                        Debug.Write( piece.Color == PieceColor.White ? "P " : "p " );
+        //                        break;
+        //                    case PieceType.Rook:
+        //                        Debug.Write( piece.Color == PieceColor.White ? "R " : "r " );
+        //                        break;
+        //                    case PieceType.Knight:
+        //                        Debug.Write( piece.Color == PieceColor.White ? "N " : "n " );
+        //                        break;
+        //                    case PieceType.Bishop:
+        //                        Debug.Write( piece.Color == PieceColor.White ? "B " : "b " );
+        //                        break;
+        //                    case PieceType.Queen:
+        //                        Debug.Write( piece.Color == PieceColor.White ? "Q " : "q " );
+        //                        break;
+        //                    case PieceType.King:
+        //                        Debug.Write( piece.Color == PieceColor.White ? "K " : "k " );
+        //                        break;
+        //                }
+        //            }
+        //        }
+        //        Debug.WriteLine( "|" );
+        //    }
+        //    Debug.WriteLine( "   -----------------" );
+        //    Debug.WriteLine( "    A B C D E F G H" );
+        //}
     }
 }

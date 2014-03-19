@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PGNSharp;
 
-namespace PGNSharpTests
+namespace PGNSharp.Core.Tests
 {
     [TestClass]
     public class GameTests

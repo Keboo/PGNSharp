@@ -1,4 +1,4 @@
-﻿namespace PGNSharp
+﻿namespace PGNSharp.Core
 {
     public enum GameResult
     {

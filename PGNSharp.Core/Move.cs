@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PGNSharp
+namespace PGNSharp.Core
 {
     public class Move
     {

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Globalization;
 
-namespace PGNSharp
+namespace PGNSharp.Core
 {
     public class Location
     {
@@ -13,7 +12,7 @@ namespace PGNSharp
             if (location == null) throw new ArgumentNullException("location");
             if (location.Length != 2) throw new ArgumentException(string.Format("Could not parse '{0}' and a location", location));
 
-            int rank = int.Parse(location[1].ToString(CultureInfo.InvariantCulture));
+            int rank = int.Parse(location[1].ToString());
             return new Location(location[0], rank);
         }
 
@@ -24,7 +23,7 @@ namespace PGNSharp
             if (locationString.Length != 2) return false;
 
             int rank;
-            if (int.TryParse(locationString[1].ToString(CultureInfo.InvariantCulture), out rank))
+            if (int.TryParse(locationString[1].ToString(), out rank))
             {
                 location = new Location(locationString[0], rank);
                 return true;
@@ -69,8 +68,8 @@ namespace PGNSharp
             if (string.IsNullOrEmpty(fromLocationHint))
                 return true; //No hint so assume a match
             return fromLocationHint.Equals(ToString()) ||
-                   fromLocationHint.Equals(File.ToString(CultureInfo.InvariantCulture)) ||
-                   fromLocationHint.Equals(Rank.ToString(CultureInfo.InvariantCulture));
+                   fromLocationHint.Equals(File.ToString()) ||
+                   fromLocationHint.Equals(Rank.ToString());
         }
 
         public override bool Equals( object obj )
