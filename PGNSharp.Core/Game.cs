@@ -10,7 +10,7 @@ namespace PGNSharp.Core
     public class Game
     {
         private static readonly Regex _tagPairsRegex = new Regex("(?<=\\s*\\[\\s*)(?<Name>\\w*?)(?:\\s+\")(?<Value>.*?)(?=\"\\s*\\])");
-        private static readonly string _moveRegexPattern = @"((?<MoveNumber>\d+)\.*)?\s+(?<WhiteMove>((?<WhitePiece>[PNBRQK]?)((?<WhiteFrom>[a-h][1-8]?)?x?)(?<WhiteTo>[a-h][1-8])\+?)|(O-O(-O)?))\s+(?<BlackMove>((?<BlackPiece>[PNBRQK]?)((?<BlackFrom>[a-h][1-8]?)?x?)(?<BlackTo>[a-h][1-8])\+?)|((O-O(-O)?)|({0})))(?=(\s+|$))";
+        private const string _moveRegexPattern = @"((?<MoveNumber>\d+)\.*)?\s+(?<WhiteMove>((?<WhitePiece>[PNBRQK]?)((?<WhiteFrom>[a-h][1-8]?)?x?)(?<WhiteTo>[a-h][1-8])\+?)|(O-O(-O)?))\s+(?<BlackMove>((?<BlackPiece>[PNBRQK]?)((?<BlackFrom>[a-h][1-8]?)?x?)(?<BlackTo>[a-h][1-8])\+?)|((O-O(-O)?)|({0})))(?=(\s+|$))";
 
         private readonly Dictionary<string, string> _tagPairs = new Dictionary<string, string>();
         private readonly Board _board = new Board();
@@ -352,7 +352,6 @@ namespace PGNSharp.Core
             return null;
         }
 
-
         public Piece GetPiece(Location location)
         {
             //For now it is just the initial starting locations since we have not implemented moving
@@ -386,6 +385,11 @@ namespace PGNSharp.Core
         public void NextMove()
         {
             _board.NextMove();
+        }
+
+        public void ResetMoves()
+        {
+            _board.ResetMoves();
         }
     }
 

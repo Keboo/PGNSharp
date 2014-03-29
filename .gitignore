@@ -1,10 +1,5 @@
 /PGNSharp.v11.suo
 /PGNSharp/bin
 
-/PGNSharp/obj
-/PGNSharpTests/bin
-/PGNSharpTests/obj
-/PGNSharp.Driod/bin
-/PGNSharp.Driod/obj
-/TestData/bin
-/TestData/obj
+bin
+obj

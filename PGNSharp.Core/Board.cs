@@ -61,6 +61,8 @@ namespace PGNSharp.Core
 
         public Move NextMove()
         {
+            if (_moveIndex == _moves.Count)
+                return null;
             var move = _moves[_moveIndex++];
             //TODO: remove duplicate calls to GetSpace
             //TODO: Handle en passant

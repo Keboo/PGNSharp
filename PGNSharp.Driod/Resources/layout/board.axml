@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableBoard"
+        android:background="#ffff0000"
+        android:layout_gravity="center">
+        <TableRow>
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="1"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="2"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="3"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="4"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="5"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="6"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="7"
+                style="@style/BoardCellBlack" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="1"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="2"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="3"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="4"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="5"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="6"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="7"
+                style="@style/BoardCellWhite" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="1"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="2"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="3"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="4"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="5"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="6"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="7"
+                style="@style/BoardCellBlack" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="1"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="2"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="3"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="4"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="5"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="6"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="7"
+                style="@style/BoardCellWhite" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="1"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="2"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="3"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="4"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="5"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="6"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="7"
+                style="@style/BoardCellBlack" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="1"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="2"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="3"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="4"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="5"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="6"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="7"
+                style="@style/BoardCellWhite" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="1"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="2"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="3"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="4"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="5"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="6"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="7"
+                style="@style/BoardCellBlack" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="1"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="2"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="3"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="4"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="5"
+                style="@style/BoardCellWhite" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="6"
+                style="@style/BoardCellBlack" />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="7"
+                style="@style/BoardCellWhite" />
+        </TableRow>
+    </TableLayout>
+    <Button
+        android:text="Next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnNextMove" />
+    <Button
+        android:text="Previous"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnPreviousMove" />
+    <Button
+        android:text="Reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnResetBoard" />
+</LinearLayout>

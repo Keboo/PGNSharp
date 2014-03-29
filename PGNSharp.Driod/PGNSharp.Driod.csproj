@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{409AC8BF-1FF8-4137-B113-F155B96D44C8}</ProjectGuid>
+    <ProjectGuid>{0565E353-CE49-4EF5-915D-704DDDBB90C1}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity1.cs" />
-    <Compile Include="Resources\BoardAdapter.cs" />
+    <Compile Include="BoardAdapter.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -58,7 +58,7 @@
     <AndroidResource Include="Resources\layout\board_cell.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\main.axml">
+    <AndroidResource Include="Resources\layout\board.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -70,10 +70,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
+    <AndroidResource Include="Resources\values\styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PGNSharp.Core\PGNSharp.Core.csproj">
-      <Project>{cf1a3dae-b67f-432f-887c-74f090fd013b}</Project>
+      <Project>{CF1A3DAE-B67F-432F-887C-74F090FD013B}</Project>
       <Name>PGNSharp.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestData\TestData.csproj">
