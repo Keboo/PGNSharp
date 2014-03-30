@@ -122,41 +122,46 @@ namespace PGNSharp.Core
             }
         }
 
+		public static Game Load(string pgn)
+		{
+			var rv = new Game();
+
+			foreach (Match match in _tagPairsRegex.Matches(pgn))
+			{
+				string name = match.Groups["Name"].Value;
+				string value = match.Groups["Value"].Value;
+
+				rv._tagPairs[name] = value;
+			}
+
+			var moveRegex = new Regex(string.Format(_moveRegexPattern, rv.TagPairs["Result"]));
+
+			foreach (Match match in moveRegex.Matches(pgn))
+			{
+				//This is also available
+				//string moveNumber = match.Groups["MoveNumber"].Value;
+
+				Piece whitePiece = GetPieceFromLetter(match.Groups["WhitePiece"].Value, PieceColor.White);
+				rv.AddMove(match.Groups["WhiteMove"].Value, whitePiece, match.Groups["WhiteFrom"].Value, match.Groups["WhiteTo"].Value);
+
+				Piece blackPiece = GetPieceFromLetter(match.Groups["BlackPiece"].Value, PieceColor.Black);                
+				rv.AddMove(match.Groups["BlackMove"].Value, blackPiece, match.Groups["BlackFrom"].Value, match.Groups["BlackTo"].Value);
+			}
+
+			//Put the pieces back to the beginning.
+			rv._board.ResetMoves();
+
+			return rv;
+		}
+
         public static Game Load(Stream stream)
         {
-            var rv = new Game();
-            string pgn;
-            using (var streamReader = new StreamReader(stream))
-            {
-                pgn = streamReader.ReadToEnd();
-            }
-
-            foreach (Match match in _tagPairsRegex.Matches(pgn))
-            {
-                string name = match.Groups["Name"].Value;
-                string value = match.Groups["Value"].Value;
-
-                rv._tagPairs[name] = value;
-            }
-
-            var moveRegex = new Regex(string.Format(_moveRegexPattern, rv.TagPairs["Result"]));
-
-            foreach (Match match in moveRegex.Matches(pgn))
-            {
-                //This is also available
-                //string moveNumber = match.Groups["MoveNumber"].Value;
-                
-                Piece whitePiece = GetPieceFromLetter(match.Groups["WhitePiece"].Value, PieceColor.White);
-                rv.AddMove(match.Groups["WhiteMove"].Value, whitePiece, match.Groups["WhiteFrom"].Value, match.Groups["WhiteTo"].Value);
-
-                Piece blackPiece = GetPieceFromLetter(match.Groups["BlackPiece"].Value, PieceColor.Black);                
-                rv.AddMove(match.Groups["BlackMove"].Value, blackPiece, match.Groups["BlackFrom"].Value, match.Groups["BlackTo"].Value);
-            }
-
-            //Put the pieces back to the beginning.
-            rv._board.ResetMoves();
-
-            return rv;
+			string pgn;
+			using (var streamReader = new StreamReader(stream))
+			{
+				pgn = streamReader.ReadToEnd();
+			}
+			return Load (pgn);
         }
 
         private void AddMove(string move, Piece piece, string fromLocation, string toLocation)
