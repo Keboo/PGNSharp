@@ -49,7 +49,7 @@ namespace PGNSharp.Core
 
         public void AddMove( Move move )
         {
-            if ( move == null ) throw new ArgumentNullException( "move" );
+            if ( move == null ) throw new ArgumentNullException( nameof(move) );
             var foundPiece = GetPiece( move.From );
             if ( move.Piece.Equals( foundPiece ) == false )
                 throw new InvalidOperationException();

@@ -17,15 +17,9 @@ namespace PGNSharp.Core
             _color = color;
         }
 
-        public PieceType Type
-        {
-            get { return _type; }
-        }
+        public PieceType Type => _type;
 
-        public PieceColor Color
-        {
-            get { return _color; }
-        }
+        public PieceColor Color => _color;
 
         public override bool Equals(object obj)
         {
@@ -35,7 +29,7 @@ namespace PGNSharp.Core
             return Equals((Piece) obj);
         }
 
-        protected bool Equals(Piece other)
+        private bool Equals(Piece other)
         {
             return _type == other._type && _color == other._color;
         }
@@ -50,86 +44,31 @@ namespace PGNSharp.Core
 
         public override string ToString()
         {
-            return string.Format("{0} {1}", Color, Type);
+            return $"{Color} {Type}";
         }
 
-        public static Piece WhitePawn
-        {
-            get { return new Piece(PieceType.Pawn, PieceColor.White); }
-        }
+        public static Piece WhitePawn => new Piece(PieceType.Pawn, PieceColor.White);
 
-        public static Piece WhiteRook
-        {
-            get { return new Piece(PieceType.Rook, PieceColor.White); }
-        }
+        public static Piece WhiteRook => new Piece(PieceType.Rook, PieceColor.White);
 
-        public static Piece WhiteKnight
-        {
-            get { return new Piece( PieceType.Knight, PieceColor.White); }
-        }
+        public static Piece WhiteKnight => new Piece( PieceType.Knight, PieceColor.White);
 
-        public static Piece WhiteBishop
-        {
-            get { return new Piece( PieceType.Bishop, PieceColor.White); }
-        }
+        public static Piece WhiteBishop => new Piece( PieceType.Bishop, PieceColor.White);
 
-        public static Piece WhiteKing
-        {
-            get { return new Piece( PieceType.King, PieceColor.White); }
-        }
+        public static Piece WhiteKing => new Piece( PieceType.King, PieceColor.White);
 
-        public static Piece WhiteQueen
-        {
-            get { return new Piece( PieceType.Queen, PieceColor.White); }
-        }
+        public static Piece WhiteQueen => new Piece( PieceType.Queen, PieceColor.White);
 
-        public static Piece BlackPawn
-        {
-            get { return new Piece( PieceType.Pawn, PieceColor.Black ); }
-        }
+        public static Piece BlackPawn => new Piece( PieceType.Pawn, PieceColor.Black );
 
-        public static Piece BlackRook
-        {
-            get { return new Piece( PieceType.Rook, PieceColor.Black ); }
-        }
+        public static Piece BlackRook => new Piece( PieceType.Rook, PieceColor.Black );
 
-        public static Piece BlackKnight
-        {
-            get { return new Piece( PieceType.Knight, PieceColor.Black ); }
-        }
+        public static Piece BlackKnight => new Piece( PieceType.Knight, PieceColor.Black );
 
-        public static Piece BlackBishop
-        {
-            get { return new Piece( PieceType.Bishop, PieceColor.Black ); }
-        }
+        public static Piece BlackBishop => new Piece( PieceType.Bishop, PieceColor.Black );
 
-        public static Piece BlackKing
-        {
-            get { return new Piece( PieceType.King, PieceColor.Black ); }
-        }
+        public static Piece BlackKing => new Piece( PieceType.King, PieceColor.Black );
 
-        public static Piece BlackQueen
-        {
-            get { return new Piece( PieceType.Queen, PieceColor.Black ); }
-        }
-        
-    }
-
-    public enum PieceColor
-    {
-        None,
-        Black,
-        White
-    }
-
-    public enum PieceType
-    {
-        None,
-        Pawn,
-        Knight,
-        Bishop,
-        Rook,
-        Queen,
-        King
+        public static Piece BlackQueen => new Piece( PieceType.Queen, PieceColor.Black );
     }
 }

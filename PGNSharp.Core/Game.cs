@@ -10,7 +10,7 @@ namespace PGNSharp.Core
     public class Game
     {
         private static readonly Regex _tagPairsRegex = new Regex("(?<=\\s*\\[\\s*)(?<Name>\\w*?)(?:\\s+\")(?<Value>.*?)(?=\"\\s*\\])");
-        private const string _moveRegexPattern = @"((?<MoveNumber>\d+)\.*)?\s+(?<WhiteMove>((?<WhitePiece>[PNBRQK]?)((?<WhiteFrom>[a-h][1-8]?)?x?)(?<WhiteTo>[a-h][1-8])\+?)|(O-O(-O)?))\s+(?<BlackMove>((?<BlackPiece>[PNBRQK]?)((?<BlackFrom>[a-h][1-8]?)?x?)(?<BlackTo>[a-h][1-8])\+?)|((O-O(-O)?)|({0})))(?=(\s+|$))";
+        private const string MoveRegexPattern = @"((?<MoveNumber>\d+)\.*)?\s+(?<WhiteMove>((?<WhitePiece>[PNBRQK]?)((?<WhiteFrom>[a-h][1-8]?)?x?)(?<WhiteTo>[a-h][1-8])\+?)|(O-O(-O)?))\s+(?<BlackMove>((?<BlackPiece>[PNBRQK]?)((?<BlackFrom>[a-h][1-8]?)?x?)(?<BlackTo>[a-h][1-8])\+?)|((O-O(-O)?)|({0})))(?=(\s+|$))";
 
         private readonly Dictionary<string, string> _tagPairs = new Dictionary<string, string>();
         private readonly Board _board = new Board();
@@ -22,10 +22,7 @@ namespace PGNSharp.Core
 
         //TODO: Make immutable
         //TODO: Add properties for the Seven Tag Roster values (8.1.1)
-        public IDictionary<string, string> TagPairs
-        {
-            get { return _tagPairs; }
-        }
+        public IDictionary<string, string> TagPairs => _tagPairs;
 
         public string Event
         {
@@ -134,7 +131,7 @@ namespace PGNSharp.Core
                 rv._tagPairs[name] = value;
             }
 
-            var moveRegex = new Regex(string.Format(_moveRegexPattern, rv.TagPairs["Result"]));
+            var moveRegex = new Regex(string.Format(MoveRegexPattern, rv.TagPairs["Result"]));
 
             foreach (Match match in moveRegex.Matches(pgn))
             {
@@ -177,7 +174,7 @@ namespace PGNSharp.Core
                     string result;
                     if (TagPairs.TryGetValue("Result", out result) && result == move)
                         return;
-                    throw new InvalidOperationException(string.Format("Castle pattern '{0}' is unknown", move));
+                    throw new InvalidOperationException($"Castle pattern '{move}' is unknown");
                 }
             }
             else
@@ -191,7 +188,7 @@ namespace PGNSharp.Core
                 }
 
                 if (sourceLocation == null)
-                    throw new Exception(string.Format("Could not find {2}'s original location '{0}' going to '{1}'", fromLocation ?? "<unknonw>", targetLocation, piece));
+                    throw new Exception(string.Format("Could not find {2}'s original location '{0}' going to '{1}'", fromLocation ?? "<unknown>", targetLocation, piece));
 
                 _board.AddMove(new Move(piece, sourceLocation, targetLocation));
             }
@@ -199,8 +196,8 @@ namespace PGNSharp.Core
 
         private Location GetSourceLocation(Piece piece, Location destinationLocation, string fromLocationHint)
         {
-            if (piece == null) throw new ArgumentNullException("piece");
-            if (destinationLocation == null) throw new ArgumentNullException("destinationLocation");
+            if (piece == null) throw new ArgumentNullException(nameof(piece));
+            if (destinationLocation == null) throw new ArgumentNullException(nameof(destinationLocation));
 
             switch (piece.Type)
             {
@@ -383,7 +380,7 @@ namespace PGNSharp.Core
                 case "K":
                     return new Piece(PieceType.King, color);
                 default:
-                    throw new InvalidOperationException(string.Format("Could not find piece for '{0}'", piece));
+                    throw new InvalidOperationException($"Could not find piece for '{piece}'");
             }
         }
 

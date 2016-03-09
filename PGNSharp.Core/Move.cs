@@ -4,16 +4,16 @@ namespace PGNSharp.Core
 {
     public class Move
     {
-        public Location From { get; private set; }
-        public Location To { get; private set; }
-        public Piece Piece { get; private set; }
-        public bool IsCastle { get; set; }
+        public Location From { get; }
+        public Location To { get; }
+        public Piece Piece { get; }
+        public bool IsCastle { get; private set; }
 
         public Move(Piece piece, Location from, Location to)
         {
-            if (piece == null) throw new ArgumentNullException("piece");
-            if (@from == null) throw new ArgumentNullException("from");
-            if (to == null) throw new ArgumentNullException("to");
+            if (piece == null) throw new ArgumentNullException(nameof(piece));
+            if (@from == null) throw new ArgumentNullException(nameof(@from));
+            if (to == null) throw new ArgumentNullException(nameof(to));
             From = from;
             To = to;
             Piece = piece;
@@ -21,7 +21,7 @@ namespace PGNSharp.Core
 
         public override string ToString()
         {
-            return string.Format("{0} from {1} to {2}", Piece, From, To);
+            return $"{Piece} from {From} to {To}";
         }
 
         public static Move GetCastle(PieceColor color, BoardSide side)

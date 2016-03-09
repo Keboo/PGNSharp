@@ -161,7 +161,7 @@ f3 Bc8 34. Kf2 Bf5 35. Ra7 g6 36. Ra6+ Kc5 37. Ke1 Nf4 38. g3 Nxh3 39. Kd2 Kb5
             Assert.AreEqual(null, game.GetPiece(Location.B8));
             Assert.AreEqual(Piece.BlackKnight, game.GetPiece(Location.C6));
 
-            for (int i = 0; i <= 38; i ++)
+            for (int i = 0; i <= 38; i++)
             {
                 game.NextMove();
                 game.NextMove();
@@ -192,14 +192,12 @@ f3 Bc8 34. Kf2 Bf5 35. Ra7 g6 36. Ra6+ Kc5 37. Ke1 Nf4 38. g3 Nxh3 39. Kd2 Kb5
         {
             Game game;
             using (var stream = new MemoryStream())
+            using (var sw = new StreamWriter(stream) { AutoFlush = true })
             {
-                using (var sw = new StreamWriter(stream) { AutoFlush = true })
-                {
-                    sw.Write(PGN);
+                sw.Write(PGN);
+                stream.Position = 0;
 
-                    stream.Position = 0;
-                    game = Game.Load(stream);
-                }
+                game = Game.Load(stream);
             }
             return game;
         }

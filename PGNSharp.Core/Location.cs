@@ -9,8 +9,8 @@ namespace PGNSharp.Core
 
         public static Location Parse(string location)
         {
-            if (location == null) throw new ArgumentNullException("location");
-            if (location.Length != 2) throw new ArgumentException(string.Format("Could not parse '{0}' and a location", location));
+            if (location == null) throw new ArgumentNullException(nameof(location));
+            if (location.Length != 2) throw new ArgumentException($"Could not parse '{location}' and a location");
 
             int rank = int.Parse(location[1].ToString());
             return new Location(location[0], rank);
@@ -19,8 +19,7 @@ namespace PGNSharp.Core
         public static bool TryParse(string locationString, out Location location)
         {
             location = null;
-            if (locationString == null) return false;
-            if (locationString.Length != 2) return false;
+            if (locationString?.Length != 2) return false;
 
             int rank;
             if (int.TryParse(locationString[1].ToString(), out rank))
@@ -53,15 +52,9 @@ namespace PGNSharp.Core
             _file = file;
         }
 
-        public int Rank
-        {
-            get { return _rank; }
-        }
+        public int Rank => _rank;
 
-        public char File
-        {
-            get { return _file; }
-        }
+        public char File => _file;
 
         public bool MatchesHint(string fromLocationHint)
         {
@@ -80,7 +73,7 @@ namespace PGNSharp.Core
             return false;
         }
 
-        protected bool Equals( Location other )
+        private bool Equals( Location other )
         {
             return _rank == other._rank && _file == other._file;
         }
@@ -98,324 +91,132 @@ namespace PGNSharp.Core
             return string.Concat(File, Rank);
         }
 
-        public static Location A1
-        {
-            get { return new Location('A', 1);}
-        }
+        public static Location A1 => new Location('A', 1);
 
-        public static Location A2
-        {
-            get { return new Location( 'A', 2 ); }
-        }
+        public static Location A2 => new Location( 'A', 2 );
 
-        public static Location A3
-        {
-            get { return new Location( 'A', 3 ); }
-        }
+        public static Location A3 => new Location( 'A', 3 );
 
-        public static Location A4
-        {
-            get { return new Location( 'A', 4 ); }
-        }
+        public static Location A4 => new Location( 'A', 4 );
 
-        public static Location A5
-        {
-            get { return new Location( 'A', 5 ); }
-        }
+        public static Location A5 => new Location( 'A', 5 );
 
-        public static Location A6
-        {
-            get { return new Location( 'A', 6 ); }
-        }
+        public static Location A6 => new Location( 'A', 6 );
 
-        public static Location A7
-        {
-            get { return new Location( 'A', 7 ); }
-        }
+        public static Location A7 => new Location( 'A', 7 );
 
-        public static Location A8
-        {
-            get { return new Location( 'A', 8 ); }
-        }
+        public static Location A8 => new Location( 'A', 8 );
 
-        public static Location B1
-        {
-            get { return new Location( 'B', 1 ); }
-        }
+        public static Location B1 => new Location( 'B', 1 );
 
-        public static Location B2
-        {
-            get { return new Location( 'B', 2 ); }
-        }
+        public static Location B2 => new Location( 'B', 2 );
 
-        public static Location B3
-        {
-            get { return new Location( 'B', 3 ); }
-        }
+        public static Location B3 => new Location( 'B', 3 );
 
-        public static Location B4
-        {
-            get { return new Location( 'B', 4 ); }
-        }
+        public static Location B4 => new Location( 'B', 4 );
 
-        public static Location B5
-        {
-            get { return new Location( 'B', 5 ); }
-        }
+        public static Location B5 => new Location( 'B', 5 );
 
-        public static Location B6
-        {
-            get { return new Location( 'B', 6 ); }
-        }
+        public static Location B6 => new Location( 'B', 6 );
 
-        public static Location B7
-        {
-            get { return new Location( 'B', 7 ); }
-        }
+        public static Location B7 => new Location( 'B', 7 );
 
-        public static Location B8
-        {
-            get { return new Location( 'B', 8 ); }
-        }
+        public static Location B8 => new Location( 'B', 8 );
 
-        public static Location C1
-        {
-            get { return new Location( 'C', 1 ); }
-        }
+        public static Location C1 => new Location( 'C', 1 );
 
-        public static Location C2
-        {
-            get { return new Location( 'C', 2 ); }
-        }
+        public static Location C2 => new Location( 'C', 2 );
 
-        public static Location C3
-        {
-            get { return new Location( 'C', 3 ); }
-        }
+        public static Location C3 => new Location( 'C', 3 );
 
-        public static Location C4
-        {
-            get { return new Location( 'C', 4 ); }
-        }
+        public static Location C4 => new Location( 'C', 4 );
 
-        public static Location C5
-        {
-            get { return new Location( 'C', 5 ); }
-        }
+        public static Location C5 => new Location( 'C', 5 );
 
-        public static Location C6
-        {
-            get { return new Location( 'C', 6 ); }
-        }
+        public static Location C6 => new Location( 'C', 6 );
 
-        public static Location C7
-        {
-            get { return new Location( 'C', 7 ); }
-        }
+        public static Location C7 => new Location( 'C', 7 );
 
-        public static Location C8
-        {
-            get { return new Location( 'C', 8 ); }
-        }
+        public static Location C8 => new Location( 'C', 8 );
 
-        public static Location D1
-        {
-            get { return new Location( 'D', 1 ); }
-        }
+        public static Location D1 => new Location( 'D', 1 );
 
-        public static Location D2
-        {
-            get { return new Location( 'D', 2 ); }
-        }
+        public static Location D2 => new Location( 'D', 2 );
 
-        public static Location D3
-        {
-            get { return new Location( 'D', 3 ); }
-        }
+        public static Location D3 => new Location( 'D', 3 );
 
-        public static Location D4
-        {
-            get { return new Location( 'D', 4 ); }
-        }
+        public static Location D4 => new Location( 'D', 4 );
 
-        public static Location D5
-        {
-            get { return new Location( 'D', 5 ); }
-        }
+        public static Location D5 => new Location( 'D', 5 );
 
-        public static Location D6
-        {
-            get { return new Location( 'D', 6 ); }
-        }
+        public static Location D6 => new Location( 'D', 6 );
 
-        public static Location D7
-        {
-            get { return new Location( 'D', 7 ); }
-        }
+        public static Location D7 => new Location( 'D', 7 );
 
-        public static Location D8
-        {
-            get { return new Location( 'D', 8 ); }
-        }
+        public static Location D8 => new Location( 'D', 8 );
 
-        public static Location E1
-        {
-            get { return new Location( 'E', 1 ); }
-        }
+        public static Location E1 => new Location( 'E', 1 );
 
-        public static Location E2
-        {
-            get { return new Location( 'E', 2 ); }
-        }
+        public static Location E2 => new Location( 'E', 2 );
 
-        public static Location E3
-        {
-            get { return new Location( 'E', 3 ); }
-        }
+        public static Location E3 => new Location( 'E', 3 );
 
-        public static Location E4
-        {
-            get { return new Location( 'E', 4 ); }
-        }
+        public static Location E4 => new Location( 'E', 4 );
 
-        public static Location E5
-        {
-            get { return new Location( 'E', 5 ); }
-        }
+        public static Location E5 => new Location( 'E', 5 );
 
-        public static Location E6
-        {
-            get { return new Location( 'E', 6 ); }
-        }
+        public static Location E6 => new Location( 'E', 6 );
 
-        public static Location E7
-        {
-            get { return new Location( 'E', 7 ); }
-        }
+        public static Location E7 => new Location( 'E', 7 );
 
-        public static Location E8
-        {
-            get { return new Location( 'E', 8 ); }
-        }
+        public static Location E8 => new Location( 'E', 8 );
 
-        public static Location F1
-        {
-            get { return new Location( 'F', 1 ); }
-        }
+        public static Location F1 => new Location( 'F', 1 );
 
-        public static Location F2
-        {
-            get { return new Location( 'F', 2 ); }
-        }
+        public static Location F2 => new Location( 'F', 2 );
 
-        public static Location F3
-        {
-            get { return new Location( 'F', 3 ); }
-        }
+        public static Location F3 => new Location( 'F', 3 );
 
-        public static Location F4
-        {
-            get { return new Location( 'F', 4 ); }
-        }
+        public static Location F4 => new Location( 'F', 4 );
 
-        public static Location F5
-        {
-            get { return new Location( 'F', 5 ); }
-        }
+        public static Location F5 => new Location( 'F', 5 );
 
-        public static Location F6
-        {
-            get { return new Location( 'F', 6 ); }
-        }
+        public static Location F6 => new Location( 'F', 6 );
 
-        public static Location F7
-        {
-            get { return new Location( 'F', 7 ); }
-        }
+        public static Location F7 => new Location( 'F', 7 );
 
-        public static Location F8
-        {
-            get { return new Location( 'F', 8 ); }
-        }
+        public static Location F8 => new Location( 'F', 8 );
 
-        public static Location G1
-        {
-            get { return new Location( 'G', 1 ); }
-        }
+        public static Location G1 => new Location( 'G', 1 );
 
-        public static Location G2
-        {
-            get { return new Location( 'G', 2 ); }
-        }
+        public static Location G2 => new Location( 'G', 2 );
 
-        public static Location G3
-        {
-            get { return new Location( 'G', 3 ); }
-        }
+        public static Location G3 => new Location( 'G', 3 );
 
-        public static Location G4
-        {
-            get { return new Location( 'G', 4 ); }
-        }
+        public static Location G4 => new Location( 'G', 4 );
 
-        public static Location G5
-        {
-            get { return new Location( 'G', 5 ); }
-        }
+        public static Location G5 => new Location( 'G', 5 );
 
-        public static Location G6
-        {
-            get { return new Location( 'G', 6 ); }
-        }
+        public static Location G6 => new Location( 'G', 6 );
 
-        public static Location G7
-        {
-            get { return new Location( 'G', 7 ); }
-        }
+        public static Location G7 => new Location( 'G', 7 );
 
-        public static Location G8
-        {
-            get { return new Location( 'G', 8 ); }
-        }
+        public static Location G8 => new Location( 'G', 8 );
 
-        public static Location H1
-        {
-            get { return new Location( 'H', 1 ); }
-        }
+        public static Location H1 => new Location( 'H', 1 );
 
-        public static Location H2
-        {
-            get { return new Location( 'H', 2 ); }
-        }
+        public static Location H2 => new Location( 'H', 2 );
 
-        public static Location H3
-        {
-            get { return new Location( 'H', 3 ); }
-        }
+        public static Location H3 => new Location( 'H', 3 );
 
-        public static Location H4
-        {
-            get { return new Location( 'H', 4 ); }
-        }
+        public static Location H4 => new Location( 'H', 4 );
 
-        public static Location H5
-        {
-            get { return new Location( 'H', 5 ); }
-        }
+        public static Location H5 => new Location( 'H', 5 );
 
-        public static Location H6
-        {
-            get { return new Location( 'H', 6 ); }
-        }
+        public static Location H6 => new Location( 'H', 6 );
 
-        public static Location H7
-        {
-            get { return new Location( 'H', 7 ); }
-        }
+        public static Location H7 => new Location( 'H', 7 );
 
-        public static Location H8
-        {
-            get { return new Location( 'H', 8 ); }
-        }
+        public static Location H8 => new Location( 'H', 8 );
     }
 }
